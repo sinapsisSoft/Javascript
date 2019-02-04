@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <script type="text/javascript">
+    
+        setTimeout(function () {
+            // is element 
+            const body = document.querySelector('body');
+            // is element print code and text of the event web 
+            const log = document.getElementById('log');
+            
+
+            body.addEventListener('keyup', logKey);
+            //get event 
+
+            alert("you one key press");
+
+            function logKey(e) {
+                //get code key and name
+                log.textContent += e.code + "\n";
+                log.textContent += e.keyCode + "\n";
+
+                validationKey(e.keyCode);
+
+            }
+           
+            
+
+
+        }, 1000);
+        //Function validate keyup, get code key 
+        function validationKey(codeKey) {
+            if (codeKey == 44) {
+                //alert("Is code PrintScreen ");
+                copyToViewWeb();
+                event.preventDefault();
+                return false;
+            }
+        }
+        //Function validate keyup, get code key
+        function copyToViewWeb() {
+
+            var getCopy = document.createElement("input");
+            // Is create  element input 
+            getCopy.setAttribute("value", "print screen!!");
+            // set value text in element input 
+            document.body.appendChild(getCopy);
+            // set element children in context web (body)
+            getCopy.select();
+            //select value input
+            document.execCommand("copy");
+            // get command is copy 
+            // remove element the it from the body
+            document.body.removeChild(getCopy);
+            alert("print screen!!");
+        }
+        //get event context menu, exsecute 
+        window.addEventListener('contextmenu',logClick);
+
+        function logClick(event){
+           
+  
+              //  let target=event.target || event.srcElement;
+              //  let textEvent=target.textContent||target.innerText;
+                alert("right-click!!");
+                event.preventDefault();
+            }
+
+    </script>
+</head>
+
+<body>
+
+    <p id="log"></p>
+
+</body>
+
+</html>

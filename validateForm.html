@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*
+          Ahutor:DIEGO CASALLAS
+          Date: 04/02/2019
+
+        */
+        var messageArray =["Valide los campos"];
+        /*Start Function
+          Description: 
+          Ahutor:DIEGO CASALLAS
+          Date: 04/02/2019 
+        */
+        function getSection(dataSection) {
+
+            let elementsSections = document.querySelectorAll('section');
+
+            var validateForm = true;
+
+            let forms = elementsSections[dataSection].querySelectorAll('form');
+
+            for (let i = 0; i < forms.length; i++) {
+
+                for (let j = 0; j < forms[i].length; j++) {
+                    let elemtRequired = forms[i][j].required;
+
+                    if (elemtRequired) {
+                        let elemtValue = forms[i][j].value;
+                        let elemtType = forms[i][j].type;
+                        let obj = forms[i][j];
+                        if (elemtType == "text") {
+                            validateForm = validateInput(elemtValue);
+
+                        }
+                        if (elemtType == "number") {
+                            validateForm = validateInput(elemtValue);
+
+                        }
+                        if (elemtType == "email") {
+
+                            if (validateInput(elemtValue)) {
+                                validateForm = validataEmail(elemtValue);
+                                console.log(validateForm);
+                            }else{
+                                validateForm=false; 
+                            }
+
+                        }
+                        if (!validateForm) {
+                            obj.focus();
+                            alertView(0);
+                            return false;
+                        }
+                    }
+
+                }
+                validateForm = true;
+
+
+            }
+
+
+
+        }
+        /* Function */
+        function validateInput(data) {
+
+            let validateEmail = "";
+            let validateInput = true;
+
+            if (data == null || data == "" || data.length == 0) {
+
+                validateInput = false;
+            }
+            return validateInput;
+
+        }
+        /* Function */
+        function validataEmail(email) {
+            var re =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        /* Function Alert*/
+        function alertView(data) {
+            alert(messageArray[data]);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!--New row-->
+        <div class="row">
+            <section>
+                <form>
+                    <input type="text" value="" required="true">
+                    <input type="text" value="">
+                </form>
+                <form>
+                    <input type="text" value="">
+                    <input type="number" value="" required="true">
+                    <input type="email" value="" required="true">
+                </form>
+
+            </section>
+        </div>
+        <!--End row-->
+<!--New row-->
+<div class="row">
+        <section>
+            <form>
+                <input type="text" value="" required="true">
+
+            </form>
+            <form>
+                <input type="email" value="" required="true">
+            </form>
+
+        </section>
+    </div>
+    <!--End row-->
+
+
+    </div>
+    <input type="button" onclick="getSection(1)" value="Click" />
+</body>
+
+</html>
